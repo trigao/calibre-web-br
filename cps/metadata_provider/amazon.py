@@ -45,7 +45,7 @@ class Amazon(Metadata):
                'Sec-Fetch-User': '?1',
                'Sec-Fetch-Dest': 'document',
                'Upgrade-Insecure-Requests': '1',
-               'Alt-Used' : 'www.amazon.com',
+               'Alt-Used' : 'www.amazon.com.br',
                'Priority' : 'u=0, i',
                'accept-encoding': 'gzip, deflate, br, zstd',
                'accept-language': 'en-US,en;q=0.9'}
@@ -58,7 +58,7 @@ class Amazon(Metadata):
         def inner(link, index) -> [dict, int]:
             with self.session as session:
                 try:
-                    r = session.get(f"https://www.amazon.com/{link}")
+                    r = session.get(f"https://www.amazon.com.br/{link}")
                     r.raise_for_status()
                 except Exception as ex:
                     log.warning(ex)
@@ -74,9 +74,9 @@ class Amazon(Metadata):
                         source=MetaSourceInfo(
                             id=self.__id__,
                             description="Amazon Books",
-                            link="https://amazon.com/"
+                            link="https://amazon.com.br/"
                         ),
-                        url = f"https://www.amazon.com{link}",
+                        url = f"https://www.amazon.com.br{link}",
                         #the more searches the slower, these are too hard to find in reasonable time or might not even exist
                         publisher= "",  # very unreliable
                         publishedDate= "",  # very unreliable
@@ -120,7 +120,7 @@ class Amazon(Metadata):
         if self.active:
             try:
                 results = self.session.get(
-                    f"https://www.amazon.com/s?k={query.replace(' ', '+')}&i=digital-text&sprefix={query.replace(' ', '+')}"
+                    f"https://www.amazon.com.br/s?k={query.replace(' ', '+')}&i=digital-text&sprefix={query.replace(' ', '+')}"
                     f"%2Cdigital-text&ref=nb_sb_noss",
                     headers=self.headers)
                 results.raise_for_status()
